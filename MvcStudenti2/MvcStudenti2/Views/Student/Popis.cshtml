@@ -1,0 +1,49 @@
+﻿@using MvcStudenti2.Models
+@using MvcStudenti2.Controllers
+@model StudentiDb
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+        <h2>@ViewBag.Title</h2>
+        <table border="1" cellspacing="0">
+            <tr>
+                <th>Ime i prezime</th>
+                <th>Spol</th>
+                <th>Oib</th>
+                <th>Redovni</th>
+                <th>Detaljno</th>
+            </tr>
+            @foreach (Student s in Model.VratiListu())
+            {
+                <tr>
+                    <td>@s.Ime @s.Prezime</td>
+                    <td>@s.Spol</td>
+                    <td>@s.Oib</td>
+                    <td>
+                        @if (s.RedovniStudent == true)
+                        {
+                            <input type="checkbox" checked disabled/>
+                        }
+                        else
+                        {
+                            <input type="checkbox" disabled/>
+                        }
+                    </td>
+                    <td>@* prenosi id *@
+                        @Html.ActionLink("Vise", "Detaljno", new { id = s.Id }) |
+                        @Html.ActionLink("Ažuriraj", "Azuriraj", new { id=s.Id})
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>
+
+
