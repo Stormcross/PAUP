@@ -62,7 +62,11 @@ namespace MvcStudenti2.Controllers
             //vracamo view sa listom svih studenata ao ulaynim parametrom
             return View(studenti);
         }
-
+        
+        //Get metoda Azuriraj
+        // prouciti http metode get,post,..
+        //get citanje podataka
+        //Post slanje podataka uvijek za azuriranje
         public ActionResult Azuriraj(int? id)
         {
             if (id == null)
