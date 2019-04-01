@@ -62,7 +62,7 @@ namespace MvcStudenti2.Controllers
             //vracamo view sa listom svih studenata ao ulaynim parametrom
             return View(studenti);
         }
-        
+        //**************************************************
         //Get metoda Azuriraj
         // prouciti http metode get,post,..
         //get citanje podataka
@@ -89,12 +89,13 @@ namespace MvcStudenti2.Controllers
         //metoda koja se poziv a prilikom http POST requesta
         //atribut Bind je drugi sigurnosni mehanizam koji onemogučava zlonamjerno
         // mjenjanje atributa koji nisu za to predviđeni (over-posting)
+        //post metoda Azuriraj
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Azuriraj(
             [Bind(Include ="Id,Ime,Prezime,Spol,Oib,GodinaStudija,DatumRodenja,RedovniStudent")] Student s)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //model state nam radi validaciju studenta
             {
                 studenti.AzurirajStudenta(s);
                 return RedirectToAction("Popis");

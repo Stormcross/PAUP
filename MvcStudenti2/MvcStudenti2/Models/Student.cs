@@ -9,7 +9,7 @@ namespace MvcStudenti2.Models
     public class Student
     {
         //Prikazivanje identiteta
-        [Display(Name = "ID Studenta")]
+        [Display(Name = "ID Studenta")] //Mtoda za opisivanje nasig property
         public int Id { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }
