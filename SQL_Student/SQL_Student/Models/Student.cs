@@ -11,16 +11,52 @@ namespace SQL_Student.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Student
     {
         public int Id { get; set; }
+
+        [Required(AllowEmptyStrings =false,ErrorMessage ="{0} je obavezno polje")]
         public string Ime { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} je obavezno polje")]
         public string Prezime { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} je obavezno polje")]
+        [StringLength(maximumLength:1,MinimumLength =1,ErrorMessage ="Unesi Ž-žensko ili M-muško za spol")]
         public string Spol { get; set; }
+
+        [Display(Name = "OIB")]// prikaz imena u index stranici
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} je obavezno polje")]
+        [StringLength(maximumLength:11,MinimumLength =11,ErrorMessage ="{0} treba imati {1} znamenki")]
+        //custom validacija oib-a
+        [OibValidacija(ErrorMessage ="Neispavan Oib")]
         public string Oib { get; set; }
-        public System.DateTime DatumRodenja { get; set; }
+
+        [Display(Name = "Datum Roðenja")]// prikaz imena za datum rodenja
+        [DataType(DataType.Date)]//prema vjezbama kako smo napravili za prikaz samo datuma
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} je obavezno polje")]
+        public DateTime DatumRodenja { get; set; }
+
+        [Display(Name = "Godina studija")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} je obavezno polje")]
+        [Range(1,5,ErrorMessage = "{0} treba biti od {1} do {2}")]
         public int GodinaStudija { get; set; }
+
+        [Display(Name = "Redovni student")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} je obavezno polje")]
         public string RedovniStudent { get; set; }
+
+        //public enum GodinaStudijaEnum
+        //{
+        //    Prva = 1,
+        //    Druga = 2,
+        //    Treca = 3,
+        //    Cetvrta = 4,
+        //    Peta = 5
+        //}
     }
+
 }

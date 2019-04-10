@@ -46,6 +46,7 @@ namespace SQL_Student.Controllers
 
             _dbStudenti.Studenti.Add(noviStudent); //prema bazi podataka, u tabeli studenti, dodaj novi student
             //_dbStudenti.SaveChanges(); //spremimo promjene koje smo napravili
+            //metoda dodana za prikaz greske
             try
             {
                 _dbStudenti.SaveChanges();
@@ -90,6 +91,18 @@ namespace SQL_Student.Controllers
             var orginalStudent = (from s in _dbStudenti.Studenti
                                   where s.Id == studentUredi.Id
                                   select s).First();
+
+            //validacija na razini kontrolera -- strana server
+            //eksplicitna validacija OIB-a
+            if (!Oib.CheckOib(orginalStudent.Oib))
+            {
+                ModelState.AddModelError("Oib", "Neispravan Oib");
+            }
+            //provjera datuma
+            if (orginalStudent.DatumRodenja>=DateTime.Now)
+            {
+                ModelState.AddModelError("DatumRodenja", "Datum rodenja treba biti manji od danasnjeg datuma");
+            }
 
             if (!ModelState.IsValid) //provjera ako sve stima kako je zamisljeno
             {
